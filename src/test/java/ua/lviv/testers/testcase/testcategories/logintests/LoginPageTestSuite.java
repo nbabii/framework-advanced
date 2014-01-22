@@ -19,7 +19,7 @@ import ua.lviv.testers.testcase.testcategories.LoginPageTest;
 
 public class LoginPageTestSuite extends LoginPageTest{
 	
-	@Test (groups = {"groupLQAS", "all", "mobile"})
+	@Test (groups = {"groupLQAS", "all", "mobile"},priority=2)
 	//TS 2.1
 	public void enterAdminPageView() throws InterruptedException{
 		LoginPage login = home.loginAdminPage(getUsermail(), getPassword());
@@ -27,7 +27,7 @@ public class LoginPageTestSuite extends LoginPageTest{
 		Assert.assertTrue(login.isAvatarDisplayed(), "Avatar is not displayed");
 	}
 	
-	@Test (groups = {"groupLQAS", "all", "mobile"})
+	@Test (groups = {"groupLQAS", "all", "mobile"},priority=1)
 	//TS 2.2
 	public void addNewPost() throws InterruptedException{
 		LoginPage login = home.loginAdminPage(getUsermail(), getPassword());
