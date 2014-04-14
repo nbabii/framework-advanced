@@ -25,6 +25,7 @@ public class TestBase{
 	
 	//protected WebDriver webDriver;
 	protected EventFiringWebDriver eventDriver;
+	protected WebDriver webDriver;
 	protected String websiteUrl;
 	
 	protected static String testUrl;
@@ -55,23 +56,24 @@ public class TestBase{
 		username = PropertyLoader.loadProperty("user.username");
 		password = PropertyLoader.loadProperty("user.password");
 		
-		WebDriver webDriver = WebDriverFactory.getInstance();
+		webDriver = WebDriverFactory.getInstance();
 		eventDriver = new EventFiringWebDriver(webDriver);
 		eventDriver.register(new WebDriverListener());
+		
 		WebDriverFactory.server.newHar(testUrl);
+		
 		eventDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);	
 		eventDriver.get(testUrl);
+		webDriver.get(testUrl);
 		home = MyPageFactory.initElements(eventDriver, HomePage.class);
-	
 	}
 	
 	@AfterMethod(groups = {"groupLQAS", "all", "mobile"}, alwaysRun = true)
 	public void reopenApp() throws Exception{	
-		if (eventDriver != null) {
-			eventDriver.quit();
-			eventDriver = null;
+		if (webDriver != null) {
+			WebDriverFactory.killDriverInstance();
 		}
-			WebDriverFactory.server.stop();
+		WebDriverFactory.server.stop();
 	}
-	
 }
+

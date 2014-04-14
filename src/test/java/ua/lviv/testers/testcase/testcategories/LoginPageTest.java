@@ -16,5 +16,5 @@ public class LoginPageTest extends TestBase{
 	@AfterMethod(alwaysRun = true, groups = {"groupLQAS", "all", "mobile"})
     public void afterClass() throws Exception {
 
-		}
+	}
 }

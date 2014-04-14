@@ -16,30 +16,35 @@ import ua.lviv.testers.webdriver.WebDriverFactory;
 public class MyPageFactory extends PageFactory{
 	
 	public static <T> T initElements(WebDriver driver, Class<T> pageClassToProxy) {
-        T page = instantiatePage(driver, pageClassToProxy);
+		T page = instantiatePage(driver, pageClassToProxy);
         initElements(driver, page);
-        waitForNextPageToLoad(driver);
-        return page;
-      }
-
-    private static <T> T instantiatePage(WebDriver driver, Class<T> pageClassToProxy) {
         try {
-          try {
-            Constructor<T> constructor = pageClassToProxy.getConstructor(WebDriver.class);
-            return constructor.newInstance(driver);
-          } catch (NoSuchMethodException e) {
-            return pageClassToProxy.newInstance();
-          }
-        } catch (InstantiationException e) {
-          throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-          throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-          throw new RuntimeException(e);
-        }
-      }
+			waitForNextPageToLoad(driver);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return page;
+	  }
+
+	private static <T> T instantiatePage(WebDriver driver, Class<T> pageClassToProxy) {
+	    try {
+	      try {
+	        Constructor<T> constructor = pageClassToProxy.getConstructor(WebDriver.class);
+	        return constructor.newInstance(driver);
+	      } catch (NoSuchMethodException e) {
+	        return pageClassToProxy.newInstance();
+	      }
+	    } catch (InstantiationException e) {
+	      throw new RuntimeException(e);
+	    } catch (IllegalAccessException e) {
+	      throw new RuntimeException(e);
+	    } catch (InvocationTargetException e) {
+	      throw new RuntimeException(e);
+	    }
+	  }
     
-    public static void waitForNextPageToLoad(WebDriver driver){
+    public static void waitForNextPageToLoad(WebDriver driver) throws Exception{
             ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>(){
                     @Override
                     public Boolean apply(WebDriver expectationDriver) {
@@ -47,7 +52,7 @@ public class MyPageFactory extends PageFactory{
                             return js.executeScript("return document.readyState").equals("complete");
                     }
             };
-            Wait<WebDriver> wait = new FluentWait<WebDriver>(WebDriverFactory.webDriver)  
+            Wait<WebDriver> wait = new FluentWait<WebDriver>(WebDriverFactory.getInstance())  
 		             .withTimeout(30, TimeUnit.SECONDS)  
 		             .pollingEvery(5, TimeUnit.SECONDS);
             try {

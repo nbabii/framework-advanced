@@ -64,7 +64,7 @@ public class MyTestListener extends TestListenerAdapter{
 				SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss");
 				//TODO get screenshot
 				Thread.sleep(3000);
-				File f = ((TakesScreenshot) WebDriverFactory.webDriver).getScreenshotAs(OutputType.FILE);
+				File f = ((TakesScreenshot) WebDriverFactory.getInstance()).getScreenshotAs(OutputType.FILE);
 				String fileName = result.getName() + "_" + formater.format(Calendar.getInstance().getTime()) + SCREENSHOT_FORMAT;
 				FileUtils.copyFile(f, new File(dir.getAbsoluteFile() + "/" + fileName));
 				File directory = new File(".");

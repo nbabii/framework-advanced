@@ -33,7 +33,7 @@ public class HomePageTestSuite extends HomePageTest{
 		String result = (String) jsEcecution.executeScript("return document.getElementById('menu-item-10').getAttribute('class')");
 		Assert.assertTrue(result.contains("menu-item menu-item-type"));
 	}
-	
+	/*
 	@Test (groups = {"groupLQAS", "all", "mobile"})
 	//TS 1.4
 	public void gatherHARfromTestWebSite() throws IOException{
@@ -42,6 +42,6 @@ public class HomePageTestSuite extends HomePageTest{
 		har.writeTo(harFile);
 		Assert.assertTrue(harFile.length() != 0);
 	}
-	
+	*/
 	
 }
